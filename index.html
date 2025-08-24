@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Магазин</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f9; }
-    header { background:#222; color:#fff; padding:15px; display:flex; justify-content:space-between; align-items:center; }
-    .cart { cursor:pointer; font-weight: bold; }
-    .main-wrapper { padding:20px; }
-    .container { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
-    .product { background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
-    .product:hover { transform: translateY(-5px); box-shadow:0 6px 12px rgba(0,0,0,0.2); }
-    .product img { max-width:100%; border-radius:10px; }
-    .product button { background:#28a745; color:#fff; border:none; padding:10px; border-radius:8px; cursor:pointer; margin-top:10px; }
-    .product button:hover { background:#218838; }
-    #cartModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; }
-    .cart-content { background:#fff; padding:20px; border-radius:12px; width:400px; max-height:80vh; overflow-y:auto; }
-    .cart-item { display:flex; justify-content:space-between; align-items:center; margin:10px 0; border-bottom:1px solid #ddd; padding-bottom:5px; }
-    .cart-item button { background:red; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; }
-    .checkout { margin-top:15px; padding:12px; width:100%; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
-    .checkout:hover { background:#0069d9; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Інтернет-магазин</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; background:#f4f4f9; }
+  header { background:#222; color:#fff; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+  .cart { cursor:pointer; font-weight:bold; }
+  .main-wrapper { padding:20px; }
+  .container { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; }
+  .product { background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
+  .product:hover { transform: translateY(-5px); box-shadow:0 6px 12px rgba(0,0,0,0.2); }
+  .product img { max-width:100%; border-radius:10px; }
+  .product button { background:#28a745; color:#fff; border:none; padding:10px; border-radius:8px; cursor:pointer; margin-top:10px; }
+  .product button:hover { background:#218838; }
+  #cartModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; }
+  .cart-content { background:#fff; padding:20px; border-radius:12px; width:400px; max-height:80vh; overflow-y:auto; }
+  .cart-item { display:flex; justify-content:space-between; align-items:center; margin:10px 0; border-bottom:1px solid #ddd; padding-bottom:5px; }
+  .cart-item button { background:red; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; }
+  .checkout { margin-top:15px; padding:12px; width:100%; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
+  .checkout:hover { background:#0069d9; }
+  footer { background:#222; color:white; text-align:center; padding:15px; margin-top:20px; }
+</style>
 </head>
 <body>
 
 <header>
-  <div class="header-left">
-    <div class="logo"><h1>Магазин</h1></div>
-  </div>
-  <div class="header-right">
-    <div class="cart" onclick="openCart()">🛒 Корзина (<span id="cartCount">0</span>)</div>
-  </div>
+  <div class="header-left"><div class="logo"><h1>Магазин</h1></div></div>
+  <div class="header-right"><div class="cart" onclick="openCart()">🛒 Корзина (<span id="cartCount">0</span>)</div></div>
 </header>
 
 <div class="main-wrapper">
@@ -42,68 +39,38 @@
     </div>
   </div>
 
-  <div class="container">
-
-    <div class="product">
-      <div class="product-inner">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/220x150" alt="Ноутбук">
+  <div class="products-section">
+    <h2 style="text-align:center; padding:20px;">Наш асортимент</h2>
+    <div class="container">
+      <div class="product">
+        <div class="product-inner">
+          <div class="product-image"><img src="https://via.placeholder.com/220x150" alt="Ноутбук"></div>
+          <div class="product-info"><h3>Ноутбук</h3><p>Ціна: 25 000 грн</p></div>
+          <div class="product-actions"><button onclick="addToCart('Ноутбук', 25000)">Додати</button></div>
         </div>
-        <div class="product-info">
-          <h3>Ноутбук</h3>
-          <p>Ціна: 25 000 грн</p>
+      </div>
+      <div class="product">
+        <div class="product-inner">
+          <div class="product-image"><img src="https://via.placeholder.com/220x150" alt="Смартфон"></div>
+          <div class="product-info"><h3>Смартфон</h3><p>Ціна: 15 000 грн</p></div>
+          <div class="product-actions"><button onclick="addToCart('Смартфон', 15000)">Додати</button></div>
         </div>
-        <div class="product-actions">
-          <button onclick="addToCart('Ноутбук', 25000)">Додати</button>
+      </div>
+      <div class="product">
+        <div class="product-inner">
+          <div class="product-image"><img src="https://via.placeholder.com/220x150" alt="Навушники"></div>
+          <div class="product-info"><h3>Навушники</h3><p>Ціна: 2 500 грн</p></div>
+          <div class="product-actions"><button onclick="addToCart('Навушники', 2500)">Додати</button></div>
+        </div>
+      </div>
+      <div class="product">
+        <div class="product-inner">
+          <div class="product-image"><img src="https://via.placeholder.com/220x150" alt="Монітор"></div>
+          <div class="product-info"><h3>Монітор</h3><p>Ціна: 7 500 грн</p></div>
+          <div class="product-actions"><button onclick="addToCart('Монітор', 7500)">Додати</button></div>
         </div>
       </div>
     </div>
-
-    <div class="product">
-      <div class="product-inner">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/220x150" alt="Смартфон">
-        </div>
-        <div class="product-info">
-          <h3>Смартфон</h3>
-          <p>Ціна: 15 000 грн</p>
-        </div>
-        <div class="product-actions">
-          <button onclick="addToCart('Смартфон', 15000)">Додати</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <div class="product-inner">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/220x150" alt="Навушники">
-        </div>
-        <div class="product-info">
-          <h3>Навушники</h3>
-          <p>Ціна: 2 500 грн</p>
-        </div>
-        <div class="product-actions">
-          <button onclick="addToCart('Навушники', 2500)">Додати</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="product">
-      <div class="product-inner">
-        <div class="product-image">
-          <img src="https://via.placeholder.com/220x150" alt="Монітор">
-        </div>
-        <div class="product-info">
-          <h3>Монітор</h3>
-          <p>Ціна: 7 500 грн</p>
-        </div>
-        <div class="product-actions">
-          <button onclick="addToCart('Монітор', 7500)">Додати</button>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -117,12 +84,14 @@
     <div id="cartItems"></div>
     <div class="cart-footer">
       <h3>Разом: <span id="cartTotal">0</span> грн</h3>
-      <div class="cart-buttons">
-        <button class="checkout" onclick="checkout()">Замовити</button>
-      </div>
+      <div class="cart-buttons"><button class="checkout" onclick="checkout()">Замовити</button></div>
     </div>
   </div>
 </div>
+
+<footer>
+  <p>&copy; 2025 Інтернет-магазин. Всі права захищено.</p>
+</footer>
 
 <script>
   let cart = [];
@@ -137,50 +106,41 @@
     let cartItems = document.getElementById("cartItems");
     cartItems.innerHTML = "";
     let total = 0;
-    cart.forEach((item, index) => {
-      total += item.price;
-      cartItems.innerHTML += `
-        <div class="cart-item">
-          <div class="cart-item-text">${item.product} - ${item.price} грн</div>
-          <div class="cart-item-actions">
-            <button onclick="removeFromCart(${index})">❌</button>
-          </div>
-        </div>
-      `;
+    cart.forEach((item,index)=>{
+      total+=item.price;
+      cartItems.innerHTML+=`
+      <div class="cart-item">
+        <div class="cart-item-text">${item.product} - ${item.price} грн</div>
+        <div class="cart-item-actions"><button onclick="removeFromCart(${index})">❌</button></div>
+      </div>`;
     });
-    document.getElementById("cartTotal").innerText = total;
+    document.getElementById("cartTotal").innerText=total;
   }
 
   function removeFromCart(index) {
-    cart.splice(index, 1);
+    cart.splice(index,1);
     updateCart();
   }
 
   function openCart() {
-    document.getElementById("cartModal").style.display = "flex";
+    document.getElementById("cartModal").style.display="flex";
   }
 
   function closeCart() {
-    document.getElementById("cartModal").style.display = "none";
+    document.getElementById("cartModal").style.display="none";
   }
 
   function checkout() {
-    if(cart.length === 0) {
-      alert("Корзина порожня!");
-      return;
-    }
-
-    let message = "🛒 Нове замовлення:%0A";
-    let total = 0;
-    cart.forEach(item => {
-      message += `- ${item.product}: ${item.price} грн%0A`;
-      total += item.price;
+    if(cart.length===0){ alert("Корзина порожня!"); return;}
+    let message="🛒 Нове замовлення:%0A";
+    let total=0;
+    cart.forEach(item=>{
+      message+=`- ${item.product}: ${item.price} грн%0A`;
+      total+=item.price;
     });
-    message += `%0AРазом: ${total} грн`;
-
-    // ⚡️ Вкажи свій username Telegram тут
-    let telegramUser = "den4eek";  
-    window.location.href = `https://t.me/${telegramUser}?text=${message}`;
+    message+=`%0AРазом: ${total} грн`;
+    let telegramUser="den4eek5";
+    window.location.href=`https://t.me/${telegramUser}?text=${message}`;
   }
 </script>
 
