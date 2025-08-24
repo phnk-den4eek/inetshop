@@ -5,216 +5,134 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Інтернет-магазин</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f9;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
-      margin: 0;
-    }
-    .cart, .account {
-      cursor: pointer;
-      font-size: 18px;
-      margin-left: 20px;
-    }
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .product {
-      background: #fff;
-      padding: 15px;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-    .product:hover {
-      transform: scale(1.05);
-    }
-    .product img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    .product h3 {
-      margin: 10px 0;
-    }
-    .product button {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .product button:hover {
-      background: #218838;
-    }
-    /* Модальні вікна */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      width: 400px;
-      max-height: 80%;
-      overflow-y: auto;
-      position: relative;
-    }
-    .close {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-    .checkout, .login-btn {
-      margin-top: 15px;
-      padding: 10px;
-      width: 100%;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    .checkout:hover {
-      background: #0056b3;
-    }
-    input {
-      width: 95%;
-      padding: 8px;
-      margin: 5px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+    body { font-family: Arial, sans-serif; margin:0; background:#f4f4f9; }
+    header { background:#222; color:#fff; padding:15px; display:flex; justify-content:space-between; align-items:center; }
+    nav ul { list-style:none; display:flex; gap:20px; margin:0; padding:0; }
+    nav ul li { cursor:pointer; }
+    .cart { cursor:pointer; font-weight: bold; }
+    .hero { background:#007bff; color:white; padding:40px; text-align:center; }
+    .container { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:20px; }
+    .product { background:#fff; padding:15px; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
+    .product:hover { transform: translateY(-5px); box-shadow:0 6px 12px rgba(0,0,0,0.2); }
+    .product img { max-width:100%; border-radius:10px; }
+    .product button { background:#28a745; color:#fff; border:none; padding:10px; border-radius:8px; cursor:pointer; margin-top:10px; }
+    .product button:hover { background:#218838; }
+    #cartModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; }
+    .cart-content { background:#fff; padding:20px; border-radius:12px; width:400px; max-height:80vh; overflow-y:auto; }
+    .cart-item { display:flex; justify-content:space-between; align-items:center; margin:10px 0; border-bottom:1px solid #ddd; padding-bottom:5px; }
+    .cart-item button { background:red; color:white; border:none; padding:5px 8px; border-radius:6px; cursor:pointer; }
+    .checkout { margin-top:15px; padding:12px; width:100%; background:#007bff; color:white; border:none; border-radius:8px; cursor:pointer; font-size:16px; }
+    .checkout:hover { background:#0069d9; }
+    footer { background:#222; color:white; text-align:center; padding:15px; margin-top:20px; }
   </style>
 </head>
 <body>
 
+<!-- Шапка -->
 <header>
-  <h1>Магазин</h1>
-  <div>
-    <span class="account" onclick="openAccount()">👤 Кабінет</span>
-    <span class="cart" onclick="openCart()">🛒 Корзина (<span id="cartCount">0</span>)</span>
-  </div>
+  <div class="logo"><h1>Магазин</h1></div>
+  <nav>
+    <ul>
+      <li>Головна</li>
+      <li>Товари</li>
+      <li>Контакти</li>
+      <li>Про нас</li>
+    </ul>
+  </nav>
+  <div class="cart" onclick="openCart()">🛒 Корзина (<span id="cartCount">0</span>)</div>
 </header>
 
-<!-- Асортимент -->
-<div class="container">
-  <div class="product">
-    <img src="https://via.placeholder.com/200x150" alt="Товар 1">
-    <h3>Ноутбук</h3>
-    <p>Ціна: 25 000 грн</p>
-    <button onclick="addToCart('Ноутбук', 25000)">Додати</button>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/200x150" alt="Товар 2">
-    <h3>Смартфон</h3>
-    <p>Ціна: 15 000 грн</p>
-    <button onclick="addToCart('Смартфон', 15000)">Додати</button>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/200x150" alt="Товар 3">
-    <h3>Навушники</h3>
-    <p>Ціна: 3 500 грн</p>
-    <button onclick="addToCart('Навушники', 3500)">Додати</button>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/200x150" alt="Товар 4">
-    <h3>Клавіатура</h3>
-    <p>Ціна: 2 000 грн</p>
-    <button onclick="addToCart('Клавіатура', 2000)">Додати</button>
-  </div>
-  <div class="product">
-    <img src="https://via.placeholder.com/200x150" alt="Товар 5">
-    <h3>Мишка</h3>
-    <p>Ціна: 1 500 грн</p>
-    <button onclick="addToCart('Мишка', 1500)">Додати</button>
+<!-- Головний банер -->
+<div class="hero">
+  <h2>Ласкаво просимо до нашого магазину!</h2>
+  <p>Тут ви знайдете найкращі товари за вигідними цінами.</p>
+</div>
+
+<!-- Контент з товарами -->
+<div class="products-section">
+  <h2 style="text-align:center; padding:20px;">Наш асортимент</h2>
+  <div class="container">
+    <div class="product">
+      <div class="product-image">
+        <img src="https://via.placeholder.com/220x150" alt="Ноутбук">
+      </div>
+      <div class="product-info">
+        <h3>Ноутбук</h3>
+        <p>Ціна: 25 000 грн</p>
+      </div>
+      <div class="product-action">
+        <button onclick="addToCart('Ноутбук', 25000)">Додати</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <img src="https://via.placeholder.com/220x150" alt="Смартфон">
+      </div>
+      <div class="product-info">
+        <h3>Смартфон</h3>
+        <p>Ціна: 15 000 грн</p>
+      </div>
+      <div class="product-action">
+        <button onclick="addToCart('Смартфон', 15000)">Додати</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <img src="https://via.placeholder.com/220x150" alt="Навушники">
+      </div>
+      <div class="product-info">
+        <h3>Навушники</h3>
+        <p>Ціна: 2 500 грн</p>
+      </div>
+      <div class="product-action">
+        <button onclick="addToCart('Навушники', 2500)">Додати</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <img src="https://via.placeholder.com/220x150" alt="Монітор">
+      </div>
+      <div class="product-info">
+        <h3>Монітор</h3>
+        <p>Ціна: 7 500 грн</p>
+      </div>
+      <div class="product-action">
+        <button onclick="addToCart('Монітор', 7500)">Додати</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Модальне вікно корзини -->
-<div id="cartModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeCart()">&times;</span>
+<div id="cartModal">
+  <div class="cart-content">
+    <span style="float:right;cursor:pointer;font-size:20px;" onclick="closeCart()">&times;</span>
     <h2>Корзина</h2>
     <div id="cartItems"></div>
     <h3>Разом: <span id="cartTotal">0</span> грн</h3>
-
-    <h3>Оформлення замовлення</h3>
-    <input type="text" id="name" placeholder="Ваше ім'я">
-    <input type="text" id="address" placeholder="Адреса доставки">
-    <input type="text" id="phone" placeholder="Телефон">
-    <button class="checkout" onclick="checkout()">Замовити</button>
+    <div class="checkout-block">
+      <button class="checkout" onclick="checkout()">Замовити</button>
+    </div>
   </div>
 </div>
 
-<!-- Модальне вікно кабінету -->
-<div id="accountModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeAccount()">&times;</span>
-    <h2>Особистий кабінет</h2>
-    <div id="accountContent"></div>
-    <input type="text" id="username" placeholder="Введіть ім'я">
-    <button class="login-btn" onclick="login()">Увійти</button>
-  </div>
-</div>
+<!-- Футер -->
+<footer>
+  <p>&copy; 2025 Інтернет-магазин. Всі права захищено.</p>
+</footer>
 
 <script>
   let cart = [];
 
-  // ---- Cookies ----
-  function setCookie(name, value, days) {
-    let d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    document.cookie = name + "=" + JSON.stringify(value) + ";expires=" + d.toUTCString() + ";path=/";
-  }
-
-  function getCookie(name) {
-    let cookies = document.cookie.split("; ");
-    for (let c of cookies) {
-      let [key, val] = c.split("=");
-      if (key === name) return JSON.parse(val);
-    }
-    return null;
-  }
-
-  // ---- Корзина ----
   function addToCart(product, price) {
     cart.push({ product, price });
-    setCookie("cart", cart, 7);
     updateCart();
   }
 
   function updateCart() {
-    let saved = getCookie("cart");
-    if(saved) cart = saved;
-
     document.getElementById("cartCount").innerText = cart.length;
     let cartItems = document.getElementById("cartItems");
     cartItems.innerHTML = "";
@@ -223,8 +141,10 @@
       total += item.price;
       cartItems.innerHTML += `
         <div class="cart-item">
-          <span>${item.product} - ${item.price} грн</span>
-          <button onclick="removeFromCart(${index})">❌</button>
+          <div class="cart-item-info">${item.product} - ${item.price} грн</div>
+          <div class="cart-item-remove">
+            <button onclick="removeFromCart(${index})">❌</button>
+          </div>
         </div>
       `;
     });
@@ -233,12 +153,10 @@
 
   function removeFromCart(index) {
     cart.splice(index, 1);
-    setCookie("cart", cart, 7);
     updateCart();
   }
 
   function openCart() {
-    updateCart();
     document.getElementById("cartModal").style.display = "flex";
   }
 
@@ -247,54 +165,21 @@
   }
 
   function checkout() {
-    let name = document.getElementById("name").value;
-    let address = document.getElementById("address").value;
-    let phone = document.getElementById("phone").value;
-
     if(cart.length === 0) {
       alert("Корзина порожня!");
       return;
     }
-    if(!name || !address || !phone) {
-      alert("Заповніть всі дані!");
-      return;
-    }
 
-    alert(`✅ Замовлення прийняте!\nІм'я: ${name}\nАдреса: ${address}\nТелефон: ${phone}\nТоварів: ${cart.length}`);
-    cart = [];
-    setCookie("cart", cart, 7);
-    updateCart();
-    closeCart();
-  }
+    let message = "🛒 Нове замовлення:%0A";
+    let total = 0;
+    cart.forEach(item => {
+      message += `- ${item.product}: ${item.price} грн%0A`;
+      total += item.price;
+    });
+    message += `%0AРазом: ${total} грн`;
 
-  // ---- Особистий кабінет ----
-  function openAccount() {
-    let user = getCookie("user");
-    let content = document.getElementById("accountContent");
-    if(user) {
-      content.innerHTML = `<p>Вітаю, <b>${user}</b>!</p>`;
-    } else {
-      content.innerHTML = `<p>Ви ще не увійшли.</p>`;
-    }
-    document.getElementById("accountModal").style.display = "flex";
-  }
-
-  function closeAccount() {
-    document.getElementById("accountModal").style.display = "none";
-  }
-
-  function login() {
-    let username = document.getElementById("username").value;
-    if(username) {
-      setCookie("user", username, 7);
-      alert("Ви увійшли як " + username);
-      closeAccount();
-    }
-  }
-
-  // ---- При завантаженні ----
-  window.onload = () => {
-    updateCart();
+    let telegramUser = "den4eek"; // ⚡️ Твій username в Telegram
+    window.location.href = `https://t.me/${telegramUser}?text=${message}`;
   }
 </script>
 
